@@ -1,0 +1,138 @@
+# ARGUMENTS
+_arg:
+  country: ${runtime_params:country, ${globals:country}}
+  peril: ${runtime_params:peril, 'rainfall'}
+  provider: ${runtime_params:provider, ${globals:provider}}
+  field: ${runtime_params:field, ${globals:field}}
+  version: ${runtime_params:version, ${globals:version}}
+  model: ${runtime_params:model, 'xgbc'}
+
+
+# TARGET DATA
+ds_aux_prcp:
+  type: early_warning_system.datasets_registry.XarrayZarrDataset
+  filepath: ${globals:data_path}/${_arg.country}/sources/UCSB_prcp.zarr
+  save_args:
+    consolidated: true
+    mode: w
+    chunks: {'lat': -1, 'lon': -1}
+  load_args:
+    consolidated: true
+
+ds_aux_tmin:
+  type: early_warning_system.datasets_registry.XarrayZarrDataset
+  filepath: ${globals:data_path}/${_arg.country}/sources/CHIRTS_tmin.zarr
+  save_args:
+    consolidated: true
+    mode: w
+    chunks: {'lat': -1, 'lon': -1}
+  load_args:
+    consolidated: true
+
+df_tmin:
+  type: pandas.ParquetDataset
+  filepath: ${globals:data_path}/${_arg.country}/inputs/SENAMHI_tmin.parquet
+
+df_prcp:
+  type: pandas.ParquetDataset
+  filepath: ${globals:data_path}/${_arg.country}/inputs/SENAMHI_prcp.parquet
+
+#df_tmin_metadata:
+#  type: pandas.ParquetDataset
+#  filepath: ${globals:data_path}/${_arg.country}/inputs/SENAMHI_tmin_metadata.parquet
+
+#df_prcp_metadata:
+#  type: pandas.ParquetDataset
+#  filepath: ${globals:data_path}/${_arg.country}/inputs/SENAMHI_prcp_metadata.parquet
+  
+
+# GEOMETRY DATA
+gdf_aoi:
+  type: geopandas.GenericDataset
+  #filepath: ${globals:data_path}/${_arg.country}/geometries/location_geometries.parquet
+  filepath: data/geometries/location_geometries.parquet
+  file_format: parquet
+  save_args:
+    compression: GZIP
+
+# RAW SOURCE DATA
+ds_dem:
+  type: early_warning_system.datasets_registry.XarrayZarrDataset
+  filepath: ${globals:data_path}/${_arg.country}/sources/MERIT_dem.zarr
+  save_args:
+    consolidated: true
+    mode: w
+    chunks: {'step': -1, 'lat': -1, 'lon': -1}
+  load_args:
+    consolidated: true
+
+ds_fct_tmin:
+  type: early_warning_system.datasets_registry.XarrayZarrDataset
+  filepath: ${globals:data_path}/${_arg.country}/sources/ECMWF_tmin.zarr
+  save_args:
+    consolidated: true
+    mode: w
+    chunks: {'time': 365, 'step': -1, 'lat': -1, 'lon': -1}
+  load_args:
+    consolidated: true
+
+ds_fct_10u:
+  type: early_warning_system.datasets_registry.XarrayZarrDataset
+  filepath: ${globals:data_path}/${_arg.country}/sources/ECMWF_10u.zarr
+  save_args:
+    consolidated: true
+    mode: w
+    chunks: {'time': 365, 'step': -1, 'lat': -1, 'lon': -1}
+  load_args:
+    consolidated: true
+
+ds_fct_10v:
+  type: early_warning_system.datasets_registry.XarrayZarrDataset
+  filepath: ${globals:data_path}/${_arg.country}/sources/ECMWF_10v.zarr
+  save_args:
+    consolidated: true
+    mode: w
+    chunks: {'time': 365, 'step': -1, 'lat': -1, 'lon': -1}
+  load_args:
+    consolidated: true
+
+ds_fct_msl:
+  type: early_warning_system.datasets_registry.XarrayZarrDataset
+  filepath: ${globals:data_path}/${_arg.country}/sources/ECMWF_msl.zarr
+  save_args:
+    consolidated: true
+    mode: w
+    chunks: {'time': 365, 'step': -1, 'lat': -1, 'lon': -1}
+  load_args:
+    consolidated: true
+
+ds_fct_swc:
+  type: early_warning_system.datasets_registry.XarrayZarrDataset
+  filepath: ${globals:data_path}/${_arg.country}/sources/ECMWF_swc.zarr
+  save_args:
+    consolidated: true
+    mode: w
+    chunks: {'time': 365, 'step': -1, 'lat': -1, 'lon': -1}
+  load_args:
+    consolidated: true
+
+ds_fct_tp:
+  type: early_warning_system.datasets_registry.XarrayZarrDataset
+  filepath: ${globals:data_path}/${_arg.country}/sources/ECMWF_tp.zarr
+  save_args:
+    consolidated: true
+    mode: w
+    chunks: {'time': 365, 'step': -1, 'lat': -1, 'lon': -1}
+  load_args:
+    consolidated: true
+
+ds_fct_tp_chirps:
+  type: early_warning_system.datasets_registry.XarrayZarrDataset
+  filepath: ${globals:data_path}/${_arg.country}/sources/CHIRPS_gefs_tp.zarr
+  save_args:
+    consolidated: true
+    mode: w
+    chunks: {'time': 365, 'step': -1, 'lat': -1, 'lon': -1}
+  load_args:
+    #combine: by_coords
+    consolidated: true

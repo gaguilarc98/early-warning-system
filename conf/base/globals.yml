@@ -1,0 +1,7 @@
+data_path: s3://suyana-ews #/home/jupyter-gabriel/suyana/drought_projects 
+#output_path: s3://suyana-pricing/projects #/home/jupyter-gabriel/suyana/drought_projects #drought_projects #drought_sc_bolivia
+country: bolivia
+region: valles
+provider: ECMWF
+field: tmin
+version: ''

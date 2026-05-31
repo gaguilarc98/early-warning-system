@@ -1,0 +1,190 @@
+# Arguments
+# Use snake_case style for uniformity e.g. costa_rica, 'swiss_re', 'bisa_seguros'
+_arg:
+  country: ${runtime_params:country, ${globals:country}}
+  peril: ${runtime_params:peril, 'rainfall'}
+  provider: ${runtime_params:provider, ${globals:provider}}
+  field: ${runtime_params:field, ${globals:field}}
+  version: ${runtime_params:version, ${globals:version}}
+  start_date: ${runtime_params:start_date, '2025-01-01'}
+  end_date: ${runtime_params:end_date, '2025-01-31'}
+  model: ${runtime_params:model, 'xgbc'}
+
+# RAW SOURCE DATA
+ds_d_fct_tmin:
+  type: early_warning_system.datasets_registry.ZarrPartitionedDataset
+  filepath: data/sources/ECMWF_tmin.zarr
+  save_args:
+    consolidated: true
+    mode: a
+    #chunks: {'time': 365, 'step': -1, 'lat': -1, 'lon': -1}
+  load_args:
+    consolidated: true
+
+ds_d_fct_10u:
+  type: early_warning_system.datasets_registry.ZarrPartitionedDataset
+  filepath: data/sources/ECMWF_10u.zarr
+  save_args:
+    consolidated: true
+    mode: a
+    #chunks: {'time': 365, 'step': -1, 'lat': -1, 'lon': -1}
+  load_args:
+    consolidated: true
+
+ds_d_fct_10v:
+  type: early_warning_system.datasets_registry.ZarrPartitionedDataset
+  filepath: data/sources/ECMWF_10v.zarr
+  save_args:
+    consolidated: true
+    mode: a
+    #chunks: {'time': 365, 'step': -1, 'lat': -1, 'lon': -1}
+  load_args:
+    consolidated: true
+
+ds_d_fct_msl:
+  type: early_warning_system.datasets_registry.ZarrPartitionedDataset
+  filepath: data/sources/ECMWF_msl.zarr
+  save_args:
+    consolidated: true
+    mode: a
+    #chunks: {'time': 365, 'step': -1, 'lat': -1, 'lon': -1}
+  load_args:
+    consolidated: true
+
+ds_d_fct_swc:
+  type: early_warning_system.datasets_registry.ZarrPartitionedDataset
+  filepath: data/sources/ECMWF_swc.zarr
+  save_args:
+    consolidated: true
+    mode: a
+    #chunks: {'time': 365, 'step': -1, 'lat': -1, 'lon': -1}
+  load_args:
+    consolidated: true
+
+ds_d_fct_tp:
+  type: early_warning_system.datasets_registry.ZarrPartitionedDataset
+  filepath: data/sources/ECMWF_tp.zarr
+  save_args:
+    consolidated: true
+    mode: a
+    #chunks: {'time': 365, 'step': -1, 'lat': -1, 'lon': -1}
+  load_args:
+    consolidated: true
+
+ds_d_fct_tp_chirps:
+  type: early_warning_system.datasets_registry.ZarrPartitionedDataset
+  filepath: data/sources/CHIRPS_gefs_tp.zarr
+  save_args:
+    consolidated: true
+    mode: a
+    #chunks: {'time': 365, 'step': -1, 'lat': -1, 'lon': -1}
+  load_args:
+    #combine: by_coords
+    consolidated: true
+
+# DYNAMIC FEATURES 
+ds_u_fct_tmin:
+  type: early_warning_system.datasets_registry.XarrayZarrDataset
+  filepath: data/features/ews_f_fct_tmin.zarr
+  save_args:
+    consolidated: true
+    mode: w
+    chunks: {'time': 365, 'step':-1, 'lat': -1, 'lon': -1}
+    align_chunks: true
+  load_args:
+    consolidated: true
+
+ds_u_fct_10u:
+  type: early_warning_system.datasets_registry.XarrayZarrDataset
+  filepath: data/features/ews_f_fct_10u.zarr
+  save_args:
+    consolidated: true
+    mode: w
+    chunks: {'time': 365, 'step':-1, 'lat': -1, 'lon': -1}
+    align_chunks: true
+  load_args:
+    consolidated: true
+
+ds_u_fct_10v:
+  type: early_warning_system.datasets_registry.XarrayZarrDataset
+  filepath: data/features/ews_f_fct_10v.zarr
+  save_args:
+    consolidated: true
+    mode: w
+    chunks: {'time': 365, 'step':-1, 'lat': -1, 'lon': -1}
+    align_chunks: true
+  load_args:
+    consolidated: true
+
+ds_u_fct_msl:
+  type: early_warning_system.datasets_registry.XarrayZarrDataset
+  filepath: data/features/ews_f_fct_msl.zarr
+  save_args:
+    consolidated: true
+    mode: w
+    chunks: {'time': 365, 'step':-1, 'lat': -1, 'lon': -1}
+    align_chunks: true
+  load_args:
+    consolidated: true
+
+ds_u_fct_swc:
+  type: early_warning_system.datasets_registry.XarrayZarrDataset
+  filepath: data/features/ews_f_fct_swc.zarr
+  save_args:
+    consolidated: true
+    mode: w
+    chunks: {'time': 365, 'step':-1, 'lat': -1, 'lon': -1}
+    align_chunks: true
+  load_args:
+    consolidated: true
+
+ds_u_fct_tp:
+  type: early_warning_system.datasets_registry.XarrayZarrDataset
+  filepath: data/features/ews_f_fct_tp.zarr
+  save_args:
+    consolidated: true
+    mode: w
+    chunks: {'time': 365, 'step':-1, 'lat': -1, 'lon': -1}
+    align_chunks: true
+  load_args:
+    consolidated: true
+
+ds_u_fct_tp_chirps:
+  type: early_warning_system.datasets_registry.XarrayZarrDataset
+  filepath: data/features/ews_f_fct_tp_chirps.zarr
+  save_args:
+    consolidated: true
+    mode: w
+    chunks: {'time': 365, 'step':-1, 'lat': -1, 'lon': -1}
+    align_chunks: true
+  load_args:
+    consolidated: true
+
+# MASTER TABLE
+
+df_mt_clean_predict: 
+  type: pandas.ParquetDataset
+  filepath: data/outputs/ews_${_arg.peril}_mt_clean.parquet
+  save_args:
+    compression: GZIP
+
+df_update_preds:
+  type: pandas.ParquetDataset
+  filepath: data/outputs/ews_${_arg.peril}_update_predictions.parquet
+  save_args:
+    compression: GZIP
+
+df_update_alerts:
+  type: pandas.ParquetDataset
+  filepath: data/outputs/ews_${_arg.peril}_update_alerts.parquet
+  save_args:
+    compression: GZIP
+
+# POLYGONS HIERARCHY
+
+gdf_hierarchy:
+  type: geopandas.GenericDataset
+  filepath: data/geometries/ews_polygons_hierarchy.parquet
+  file_format: parquet
+  save_args:
+    compression: GZIP

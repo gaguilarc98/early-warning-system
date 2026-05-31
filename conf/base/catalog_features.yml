@@ -1,0 +1,120 @@
+# ARGUMENTS
+_arg:
+  country: ${runtime_params:country, ${globals:country}}
+  peril: ${runtime_params:peril, 'rainfall'}
+  provider: ${runtime_params:provider, ${globals:provider}}
+  field: ${runtime_params:field, ${globals:field}}
+  version: ${runtime_params:version, ${globals:version}}
+
+
+# STATIC FEATURES 
+ds_f_dem:
+  type: early_warning_system.datasets_registry.XarrayZarrDataset
+  filepath: ${globals:data_path}/${_arg.country}/features/ews_f_dem.zarr
+
+ds_f_clim_tmin:
+  type: early_warning_system.datasets_registry.XarrayZarrDataset
+  filepath: ${globals:data_path}/${_arg.country}/features/ews_f_clim_tmin.zarr
+
+ds_f_clim_10u:
+  type: early_warning_system.datasets_registry.XarrayZarrDataset
+  filepath: ${globals:data_path}/${_arg.country}/features/ews_f_clim_10u.zarr
+
+ds_f_clim_10v:
+  type: early_warning_system.datasets_registry.XarrayZarrDataset
+  filepath: ${globals:data_path}/${_arg.country}/features/ews_f_clim_10v.zarr
+
+ds_f_clim_msl:
+  type: early_warning_system.datasets_registry.XarrayZarrDataset
+  filepath: ${globals:data_path}/${_arg.country}/features/ews_f_clim_msl.zarr
+
+ds_f_clim_swc:
+  type: early_warning_system.datasets_registry.XarrayZarrDataset
+  filepath: ${globals:data_path}/${_arg.country}/features/ews_f_clim_swc.zarr
+
+ds_f_clim_tp:
+  type: early_warning_system.datasets_registry.XarrayZarrDataset
+  filepath: ${globals:data_path}/${_arg.country}/features/ews_f_clim_tp.zarr
+
+ds_f_clim_tp_chirps:
+  type: early_warning_system.datasets_registry.XarrayZarrDataset
+  filepath: ${globals:data_path}/${_arg.country}/features/ews_f_clim_tp_chirps.zarr
+
+
+# DYNAMIC FEATURES 
+ds_f_fct_tmin:
+  type: early_warning_system.datasets_registry.XarrayZarrDataset
+  filepath: ${globals:data_path}/${_arg.country}/features/ews_f_fct_tmin.zarr
+  save_args:
+    consolidated: true
+    mode: w
+    chunks: {'time': 365, 'step':-1, 'lat': -1, 'lon': -1}
+    align_chunks: True
+  load_args:
+    consolidated: true
+
+ds_f_fct_10u:
+  type: early_warning_system.datasets_registry.XarrayZarrDataset
+  filepath: ${globals:data_path}/${_arg.country}/features/ews_f_fct_10u.zarr
+  save_args:
+    consolidated: true
+    mode: w
+    chunks: {'time': 365, 'step':-1, 'lat': -1, 'lon': -1}
+    align_chunks: True
+  load_args:
+    consolidated: true
+
+ds_f_fct_10v:
+  type: early_warning_system.datasets_registry.XarrayZarrDataset
+  filepath: ${globals:data_path}/${_arg.country}/features/ews_f_fct_10v.zarr
+  save_args:
+    consolidated: true
+    mode: w
+    chunks: {'time': 365, 'step':-1, 'lat': -1, 'lon': -1}
+    align_chunks: True
+  load_args:
+    consolidated: true
+
+ds_f_fct_msl:
+  type: early_warning_system.datasets_registry.XarrayZarrDataset
+  filepath: ${globals:data_path}/${_arg.country}/features/ews_f_fct_msl.zarr
+  save_args:
+    consolidated: true
+    mode: w
+    chunks: {'time': 365, 'step':-1, 'lat': -1, 'lon': -1}
+    align_chunks: True
+  load_args:
+    consolidated: true
+
+ds_f_fct_swc:
+  type: early_warning_system.datasets_registry.XarrayZarrDataset
+  filepath: ${globals:data_path}/${_arg.country}/features/ews_f_fct_swc.zarr
+  save_args:
+    consolidated: true
+    mode: w
+    chunks: {'time': 365, 'step':-1, 'lat': -1, 'lon': -1}
+    align_chunks: True
+  load_args:
+    consolidated: true
+
+ds_f_fct_tp:
+  type: early_warning_system.datasets_registry.XarrayZarrDataset
+  filepath: ${globals:data_path}/${_arg.country}/features/ews_f_fct_tp.zarr
+  save_args:
+    consolidated: true
+    mode: w
+    chunks: {'time': 365, 'step':-1, 'lat': -1, 'lon': -1}
+    align_chunks: True
+  load_args:
+    consolidated: true
+
+ds_f_fct_tp_chirps:
+  type: early_warning_system.datasets_registry.XarrayZarrDataset
+  filepath: ${globals:data_path}/${_arg.country}/features/ews_f_fct_tp_chirps.zarr
+  save_args:
+    consolidated: true
+    mode: w
+    chunks: {'time': 365, 'step':-1, 'lat': -1, 'lon': -1}
+    align_chunks: True
+  load_args:
+    consolidated: true

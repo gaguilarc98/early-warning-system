@@ -1,0 +1,171 @@
+# Here you can define all your datasets by using simple YAML syntax.
+#
+# Documentation for this file format can be found in "The Data Catalog"
+# Link: https://docs.kedro.org/en/stable/catalog-data/introduction/#data-catalog
+# Here you can define all your datasets by using simple YAML syntax.
+
+# Arguments
+# Use snake_case style for uniformity e.g. costa_rica, 'swiss_re', 'bisa_seguros'
+_arg:
+  country: ${runtime_params:country, ${globals:country}}
+  peril: ${runtime_params:peril, 'rainfall'}
+  provider: ${runtime_params:provider, ${globals:provider}}
+  field: ${runtime_params:field, ${globals:field}}
+  version: ${runtime_params:version, ${globals:version}}
+  start_date: ${runtime_params:start_date, '2025-01-01'}
+  end_date: ${runtime_params:end_date, '2025-01-31'}
+  model: ${runtime_params:model, 'xgbc'}
+
+
+# GEOMETRY DATA
+dict_params_spatial:
+  type: MemoryDataset
+
+ds_grid:
+  type: early_warning_system.datasets_registry.XarrayZarrDataset
+  filepath: ${globals:data_path}/${_arg.country}/geometries/ews_grid.zarr
+  save_args:
+    consolidated: true
+    mode: w
+    chunks: {'lat': -1, 'lon': -1}
+  load_args:
+    #combine: by_coords
+    consolidated: true
+
+gdf_grid:
+  type: geopandas.GenericDataset
+  filepath: ${globals:data_path}/${_arg.country}/geometries/ews_polygons.parquet
+  file_format: parquet
+  save_args:
+    compression: GZIP
+
+
+# TARGET DATA
+#df_cluster_tmin:
+#  type: pandas.ParquetDataset
+#  filepath: ${globals:data_path}/${_arg.country}/features/ews_cluster_tmin.parquet
+
+#df_cluster_prcp:
+#  type: pandas.ParquetDataset
+#  filepath: ${globals:data_path}/${_arg.country}/features/ews_cluster_prcp.parquet
+
+df_target:
+  type: pandas.ParquetDataset
+  filepath: ${globals:data_path}/${_arg.country}/inputs/ews_target_${_arg.peril}.parquet
+  save_args:
+    compression: GZIP
+
+
+# MASTER TABLE
+ds_mt:
+  type: MemoryDataset
+
+df_mt:
+  type: MemoryDataset
+
+#df_mt_clean:
+#  type: pandas.SQLTableDataset
+#  table_name: ews_${_arg.peril}_mt_clean_${globals:version}
+#  credentials: sqlite_local
+#  save_args:
+#    if_exists: replace #replace
+#  load_args:
+#    index_col: false
+
+#df_mt_clean_read:
+#  type: pandas.SQLQueryDataset
+#  credentials: sqlite_local
+#  sql: 
+#    SELECT * FROM ews_${_arg.peril}_mt_clean_${globals:version}
+#    WHERE DATE(time) >= '${_arg.start_date}'
+#      AND DATE(time) <= '${_arg.end_date}'
+
+df_mt_clean:
+  type: early_warning_system.datasets_registry.DeltaLakeRawDataset
+  filepath: ${globals:data_path}/${_arg.country}/outputs/ews_${_arg.peril}_mt_clean
+  save_args:
+    mode: append
+    partition_by: yearmon
+
+
+# HYPERTUNING PROCEDURE OUTPUTS
+df_tuning_preds:
+  type: pandas.ParquetDataset
+  filepath: ${globals:data_path}/${_arg.country}/outputs/ews_${_arg.peril}_tuning_predictions_${_arg.model}.parquet
+  save_args:
+    compression: GZIP
+
+dict_tuning:
+  type: pickle.PickleDataset
+  filepath: ${globals:data_path}/${_arg.country}/reports/ews_${_arg.peril}_tuning_summary_${_arg.model}.pkl
+  backend: pickle
+
+pkl_tuning:
+  type: pickle.PickleDataset
+  filepath: ${globals:data_path}/${_arg.country}/models/ews_${_arg.peril}_tuning_model_${_arg.model}.pkl
+  backend: pickle
+
+
+# FINAL MODEL OUTPUTS
+df_final_preds:
+  type: pandas.ParquetDataset
+  filepath: ${globals:data_path}/${_arg.country}/outputs/ews_${_arg.peril}_final_predictions_${_arg.model}.parquet
+  save_args:
+    compression: GZIP
+
+dict_final:
+  type: pickle.PickleDataset
+  filepath: ${globals:data_path}/${_arg.country}/reports/ews_${_arg.peril}_final_summary_${_arg.model}.pkl
+  backend: pickle
+
+pkl_final:
+  type: pickle.PickleDataset
+  #filepath: ${globals:data_path}/${_arg.country}/models/ews_${_arg.peril}_final_model_${_arg.model}.pkl
+  filepath: data/models/ews_${_arg.peril}_final_model_${_arg.model}.pkl
+  backend: pickle
+
+
+# PREDICT OUTPUTS
+pkl_model_coldspells:
+  type: pickle.PickleDataset
+  filepath: ${globals:data_path}/${_arg.country}/models/ews_downscale_temperature_final_model_${_arg.model}.pkl
+  backend: pickle
+
+pkl_model_rainfall:
+  type: pickle.PickleDataset
+  filepath: ${globals:data_path}/${_arg.country}/models/ews_downscale_precipitation_final_model_${globals:version}.pkl
+  backend: pickle
+
+df_model_preds:
+  type: pandas.SQLTableDataset
+  table_name: ews_${_arg.peril}_predictions_${globals:version}_borrar
+  credentials: sqlite_local
+  save_args:
+    if_exists: append
+  load_args:
+    index_col: false
+
+# VISUALIZATION PLOTS
+plt_metrics:
+  type: matplotlib.MatplotlibDataset
+  filepath: ${globals:data_path}/${_arg.country}/displays/ews_${_arg.peril}_metrics_plot.png
+  #filepath: data/displays/ews_${_arg.peril}_metrics_plot.png
+  save_args:
+    bbox_inches: tight
+    dpi: 150
+
+plt_scatter:
+  type: matplotlib.MatplotlibDataset
+  filepath: ${globals:data_path}/${_arg.country}/displays/ews_${_arg.peril}_scatter_plot.png
+  #filepath: data/displays/ews_${_arg.peril}_scatter_plot.png
+  save_args:
+    bbox_inches: tight
+    dpi: 150
+
+plt_curves:
+  type: matplotlib.MatplotlibDataset
+  filepath: ${globals:data_path}/${_arg.country}/displays/ews_${_arg.peril}_curves_plot.png
+  #filepath: data/displays/ews_${_arg.peril}_curves_plot.png
+  save_args:
+    bbox_inches: tight
+    dpi: 150

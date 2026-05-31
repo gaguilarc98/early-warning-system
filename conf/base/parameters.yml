@@ -1,0 +1,429 @@
+# DOWNSCALE TEMPERATURE
+_arg:
+  country: ${runtime_params:country, ${globals:country}}
+  provider: ${runtime_params:provider, ${globals:provider}}
+  field: ${runtime_params:field, ${globals:field}}
+  start_date: ${runtime_params:start_date, '2010-01-01'}
+  end_date: ${runtime_params:end_date, '2025-12-31'}
+  target: ${runtime_params:target, 'target_P90_3d_final'}
+  peril: ${runtime_params:peril, 'coldspell'}
+  model: ${runtime_params:version, 'xgbc'}
+
+params_s: 
+  nodes_by_deg: 40
+  include: {
+    'aoa': ['Selected'],
+  }
+  exclude: {
+    'idStation': [994]
+  }
+
+params_t:
+  start_date: ${_arg.start_date}
+  end_date: ${_arg.end_date}
+  freq: '1D'
+  date_format: '%Y-%m-%d'
+  date_mode: True
+
+request_tmin:
+  provider: ECMWF
+  field: tmin
+
+request_10u:
+  provider: ECMWF
+  field: 10u
+
+request_10v:
+  provider: ECMWF
+  field: 10v
+
+request_msl:
+  provider: ECMWF
+  field: msl
+
+request_swc:
+  provider: ECMWF
+  field: swc
+
+request_tp:
+  provider: ECMWF
+  field: tp
+
+request_tp_chirps:
+  provider: UCSB
+  origin: CHIRPS-GEFS
+  freq: 05-day
+  field: prcp
+  variable: PRCP
+
+target_coldspell:
+  variable: 'tmin'
+  perc_thresholds: [3, 5, 10]
+  temp_thresholds: [2, 0, -2]
+  sd_thresholds: [1, 1.5]
+  temp_days: [3, 5]
+  group_cols: ['idStation']
+
+target_rainfall:
+  #departamentos: ['Cochabamba', 'Chuquisaca', 'Tarija']
+  variable: 'prcp'
+  perc_thresholds: [90, 95, 97]
+  prcp_thresholds: [20, 25, 30]
+  prcp_days: [3, 5] #[1,2,3]
+  group_cols: ['idStation']
+
+topography:
+  windows_tpi: [5,15,25]
+  windows_tdi: [5,15,25]
+
+fct:
+  atmos:
+    #z: 'Z'
+    #t: 'T'
+    #u: 'U'
+    #v: 'V'
+    #q: 'Q'
+  static:
+    #slt: 'SLT',
+    #lsm: 'LSM',
+    #z: 'Z'
+  surf:
+    2t: '2_metre_temperature_surface' #'VAR_2T'
+    10u: '10_metre_U_wind_component_surface' #'VAR_10U',
+    10v: '10_metre_V_wind_component_surface' #'VAR_10V',
+    #msl: 'Mean_sea_level_pressure_surface' #'MSL'
+    swc: 'Volumetric_soil_water_layer_1_layer_between_two_depths_below_surface_layer'
+    #tcwv: 'Total_column_water_vapour_surface'
+
+# PARAMETERS FORECAST
+params_clim_t:
+  start_date: '2010-01-01'
+  end_date: '2025-12-31'
+
+
+fct_tmin:
+  steps: [2, 3, 4, 5, 6]
+  smooth_clim: 2
+  variable: 't2m'
+
+fct_10u:
+  steps: [2, 3, 4, 5, 6]
+  smooth_clim: 2
+  variable: 'u10'
+
+fct_10v:
+  steps: [2, 3, 4, 5, 6]
+  smooth_clim: 2
+  variable: 'v10'
+
+fct_msl:
+  steps: [2, 3, 4, 5, 6]
+  smooth_clim: 2
+  variable: 'msl'
+
+fct_swc:
+  steps: [2, 3, 4, 5, 6]
+  smooth_clim: 2
+  variable: 'swc'
+
+fct_tp:
+  steps: [2, 3, 4, 5, 6, 7]
+  smooth_clim: 2
+  variable: 'tp'
+
+fct_tp_chirps:
+  steps: [0, 1, 2, 3, 4]
+  smooth_clim: 2
+  variable: 'tp_chirps'
+
+
+forecast:
+  steps: [2, 3, 4, 5, 6]
+  smooth_clim: 2
+  dict_vars:
+    atmos:
+      #z: 'Z'
+      #t: 'T'
+      #u: 'U'
+      #v: 'V'
+      #q: 'Q'
+    static:
+      #slt: 'SLT',
+      #lsm: 'LSM',
+      #z: 'Z'
+    surf:
+      2t: 't2m' #'VAR_2T'
+      10u: 'u10' #'VAR_10U',
+      10v: 'v10' #'VAR_10V',
+      msl: 'msl' #'MSL'
+      sm: 'sm'
+      #tcwv: 'Total_column_water_vapour_surface'
+
+forecast_2t_min:
+  steps: [2, 3, 4, 5, 6]
+  smooth_clim: 2
+  dict_vars:
+    surf:
+      2t_min: 't2m'
+
+forecast_ecmwf:
+  steps: [2, 3, 4, 5, 6, 7]
+  smooth_clim: 2
+  dict_vars:
+    surf:
+      tp: 'tp'
+
+forecast_chirps:
+  steps: [0, 1, 2, 3, 4]
+  smooth_clim: 2
+  dict_vars:
+    surf:
+      tp_chirps: 'prcp'
+
+# MASTER TABLE
+mt:
+  peril: ${_arg.peril}
+  categorical_cols: ['month', 'week']
+  coldspell:
+    vars_y: [
+      'idStation', 'codMunicipio', 'departamen', 'provincia', 'municipio',
+      'lon_station', 'lat_station', 'lon', 'lat', 'time', 'cluster',
+      'tmin_lfa', 'tmin_chirts', 'tmin',
+      'flag_tmin_1sd_final', 'n_1sd_next3d_final', 'target_1sd_3d_final',
+      'n_1sd_next5d_final', 'target_1sd_5d_final', 'flag_tmin_1.5sd_final',
+      'n_1.5sd_next3d_final', 'target_1.5sd_3d_final', 'n_1.5sd_next5d_final',
+      'target_1.5sd_5d_final'
+    ]
+    target: target_1sd_3d_final #${_arg.target}
+    sel_step: [2, 3, 4]
+
+  rainfall:
+    vars_y: [
+      'idStation', 'codMunicipio', 'departamen', 'provincia', 'municipio',
+      'lon_station', 'lat_station', 'lon', 'lat', 'time', 'cluster',
+      'prcp_lfa', 'time_orig', 'prcp_chirps', 'prcp_chirps_adj', 
+      'prcp_next3d_final', 'perc_prcp_next3d_final',
+      'target_P90_3d_final', 'target_P95_3d_final', 'target_P97_3d_final',
+      'prcp_next5d_final', 'perc_prcp_next5d_final', 'target_P90_5d_final',
+      'target_P95_5d_final', 'target_P97_5d_final'
+    ]
+    target: target_P95_5d_final #${_arg.target}
+    sel_step: [2, 3, 4, 5, 6]
+
+prepare:
+  peril: ${_arg.peril}
+  coldspell:
+    ignore_cols: [ 
+      'idStation', 'codMunicipio', 'departamen', 'provincia', 'municipio',
+      'lon_station', 'lat_station', 'lon', 'lat', 'time', 'cluster',
+      'tmin_lfa', 'tmin_chirts', 'tmin',
+      'flag_tmin_1sd_final', 'n_1sd_next3d_final', 'target_1sd_3d_final',
+      'n_1sd_next5d_final', 'target_1sd_5d_final', 'flag_tmin_1.5sd_final',
+      'n_1.5sd_next3d_final', 'target_1.5sd_3d_final', 'n_1.5sd_next5d_final',
+      'target_1.5sd_5d_final',
+      't2m', 'u10', 'v10', 'msl',
+      'swc', 'yearmon'
+    ]
+    target: target_1sd_3d_final #${_arg.target}
+    n_months_backtest: 48
+    subset_fraq: 0.20
+    subset_by: 'idStation'
+    stratify_by: 'cluster'
+    remove_nans_from: ['n_1sd_next3d_final']
+    num_quantiles: 20
+
+  rainfall:
+    ignore_cols: [ 
+      'idStation', 'codMunicipio', 'departamen', 'provincia', 'municipio',
+      'lon_station', 'lat_station', 'lon', 'lat', 'time', 'cluster',
+      'prcp_lfa', 'time_orig', 'prcp_chirps', 'prcp_chirps_adj', 
+      'prcp_next3d_final', 'perc_prcp_next3d_final',
+      'target_P90_3d_final', 'target_P95_3d_final', 'target_P97_3d_final',
+      'prcp_next5d_final', 'perc_prcp_next5d_final', 'target_P90_5d_final',
+      'target_P95_5d_final', 'target_P97_5d_final', 
+      't2m', 'u10', 'v10', 'msl',
+      'swc', 'tp', 'tp_chirps', 'yearmon'
+    ]
+    target: target_P95_5d_final #${_arg.target}
+    n_months_backtest: 48
+    subset_fraq: 0.20
+    subset_by: 'idStation'
+    stratify_by: 'cluster'
+    remove_nans_from: ['prcp_next5d_final']
+    num_quantiles: 20
+
+hypertuning:
+  peril: ${_arg.peril}
+  coldspell: 
+    algorithm: ${_arg.model}
+    n_trials: 1500
+    grid_values: {
+      'hgbc': {
+        'random_state': [42], 
+        'learning_rate': [0.08, 0.1, 0.2], 
+        'max_iter': [10, 30, 50],
+        'max_depth': [4, 7, 10], #4,  
+        'max_leaf_nodes': [15, 30, 40], #12, #'max_leaves', 'max_leaf_nodes' --alias
+        'max_features': [0.6, 0.8]
+      },
+      'lgbc': {
+        'random_state': [42], 
+        'boosting_type': ['gbdt'], 
+        'learning_rate': [0.05, 0.085, 0.15], 
+        'n_estimators': [10, 35, 50],
+        'max_depth': [4, 6, 10], #4,  
+        'num_leaves': [15, 30, 45], #12, #'max_leaves', 'max_leaf_nodes' --alias
+        'feature_fraction': [0.6, 0.75], #'colsample_bytree' --alias
+        'subsample': [0.8], #'subsample'--alias
+        'scale_pos_weight': [12, 15, 20],
+      },
+      'xgbc': {
+        'n_estimators': {
+          'type': 'int',
+          'low': 10,
+          'high': 75,
+          'step': 5
+        },
+        'max_depth': {
+          'type': 'int',
+          'low': 2,
+          'high': 16
+        },
+        'max_leaves': {
+          'type': 'int',
+          'low': 4,
+          'high': 16
+        },
+        'learning_rate': {
+          'type': "float",
+          'low': 0.01,
+          'high': 0.25,
+          'step': 0.01,
+          'log': False
+        },
+        'scale_pos_weight': {
+          'type': 'int',
+          'low': 10,
+          'high': 24
+        },
+        'colsample_bytree': {
+          'type': 'float',
+          'low': 0.35,
+          'high': 0.70,
+          'step': 0.05,
+          'log': False
+        },
+        'base_score':{
+          'type': 'categorical',
+          'choices': [0.04, 0.05]
+        }
+      }
+    }
+    index_best: 0
+
+  rainfall:
+    algorithm: ${_arg.model}
+    n_trials: 1500
+    grid_values: {
+      'hgbc': {
+        'random_state': [42], 
+        'learning_rate': [0.08, 0.1, 0.2], 
+        'max_iter': [10, 30, 50],
+        'max_depth': [4, 7, 10], #4,  
+        'max_leaf_nodes': [15, 30, 40], #12, #'max_leaves', 'max_leaf_nodes' --alias
+        'max_features': [0.6, 0.8]
+      },
+      'lgbc': {
+        'random_state': [42], 
+        'boosting_type': ['gbdt'], 
+        'learning_rate': [0.05, 0.085, 0.15], 
+        'n_estimators': [10, 35, 50],
+        'max_depth': [4, 6, 10], #4,  
+        'num_leaves': [15, 30, 45], #12, #'max_leaves', 'max_leaf_nodes' --alias
+        'feature_fraction': [0.6, 0.75], #'colsample_bytree' --alias
+        'subsample': [0.8], #'subsample'--alias
+        'scale_pos_weight': [12, 15, 20],
+      },
+      'xgbc': {
+        'n_estimators': {
+          'type': 'int',
+          'low': 10,
+          'high': 75,
+          'step': 5
+        },
+        'max_depth': {
+          'type': 'int',
+          'low': 3,
+          'high': 15
+        },
+        'max_leaves': {
+          'type': 'int',
+          'low': 5,
+          'high': 50
+        },
+        'learning_rate': {
+          'type': "float",
+          'low': 0.01,
+          'high': 0.25,
+          'step': 0.01,
+          'log': False
+        },
+        'scale_pos_weight': {
+          'type': 'int',
+          'low': 8,
+          'high': 20
+        },
+        'colsample_bytree': {
+          'type': 'float',
+          'low': 0.35,
+          'high': 0.75,
+          'step': 0.05,
+          'log': False
+        },
+        'base_score':{
+          'type': 'categorical',
+          'choices': [0.04, 0.05]
+        }
+      }
+    }
+    index_best: 0
+
+predict:
+  peril: ${_arg.peril}
+  alert_thresholds:
+    coldspell:
+      Red:    0.60
+      Orange: 0.12
+      None:   0.0
+    rainfall:
+      Red:    0.40
+      Orange: 0.10
+      None:   0.0
+
+plot_metrics:
+  groupby_cols: ['subset', 'idStation']
+  subset_col:   'subset'
+  peril:        ${_arg.peril}   
+  target_col:
+    coldspell:  target_1sd_3d_final
+    rainfall:   target_P95_5d_final
+  prob_col:     'prob_class_1'
+
+plot_scatter:
+  groupby_cols: ['idStation', 'lon_station', 'lat_station']
+  lon_col:      'lon_station'
+  lat_col:      'lat_station'
+  peril:        ${_arg.peril}   
+  target_col:
+    coldspell:  target_1sd_3d_final
+    rainfall:   target_P95_5d_final
+  prob_col:     'prob_class_1'
+  metric:       'GINI'
+
+plot_curves:
+  peril:        ${_arg.peril}   
+  target_col:
+    coldspell:  target_1sd_3d_final
+    rainfall:   target_P95_5d_final
+  prob_col:   'prob_class_1'
+  #subset_col: 'subset'
