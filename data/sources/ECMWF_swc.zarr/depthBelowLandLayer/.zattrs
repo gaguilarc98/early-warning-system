@@ -1,0 +1,7 @@
+{
+    "_ARRAY_DIMENSIONS": [],
+    "long_name": "soil depth",
+    "positive": "down",
+    "standard_name": "depth",
+    "units": "m"
+}

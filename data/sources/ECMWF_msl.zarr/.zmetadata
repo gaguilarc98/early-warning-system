@@ -1,0 +1,226 @@
+{
+    "metadata": {
+        ".zattrs": {
+            "Conventions": "CF-1.7",
+            "GRIB_centre": "ecmf",
+            "GRIB_centreDescription": "European Centre for Medium-Range Weather Forecasts",
+            "GRIB_edition": 2,
+            "GRIB_subCentre": 0,
+            "history": "2026-05-31T23:37 GRIB to CDM+CF via cfgrib-0.9.15.1/ecCodes-2.46.2 with {\"source\": \"../../../../../tmp/tmpq607c7p6.grib\", \"filter_by_keys\": {}, \"encode_cf\": [\"parameter\", \"time\", \"geography\", \"vertical\"]}",
+            "institution": "European Centre for Medium-Range Weather Forecasts"
+        },
+        ".zgroup": {
+            "zarr_format": 2
+        },
+        "latitude/.zarray": {
+            "chunks": [
+                80
+            ],
+            "compressor": {
+                "blocksize": 0,
+                "clevel": 5,
+                "cname": "lz4",
+                "id": "blosc",
+                "shuffle": 1
+            },
+            "dtype": "<f8",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [
+                80
+            ],
+            "zarr_format": 2
+        },
+        "latitude/.zattrs": {
+            "_ARRAY_DIMENSIONS": [
+                "latitude"
+            ],
+            "long_name": "latitude",
+            "standard_name": "latitude",
+            "stored_direction": "decreasing",
+            "units": "degrees_north"
+        },
+        "longitude/.zarray": {
+            "chunks": [
+                64
+            ],
+            "compressor": {
+                "blocksize": 0,
+                "clevel": 5,
+                "cname": "lz4",
+                "id": "blosc",
+                "shuffle": 1
+            },
+            "dtype": "<f8",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [
+                64
+            ],
+            "zarr_format": 2
+        },
+        "longitude/.zattrs": {
+            "_ARRAY_DIMENSIONS": [
+                "longitude"
+            ],
+            "long_name": "longitude",
+            "standard_name": "longitude",
+            "units": "degrees_east"
+        },
+        "meanSea/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<f8",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "meanSea/.zattrs": {
+            "_ARRAY_DIMENSIONS": [],
+            "long_name": "original GRIB coordinate for key: level(meanSea)",
+            "units": "1"
+        },
+        "msl/.zarray": {
+            "chunks": [
+                7,
+                80,
+                64
+            ],
+            "compressor": {
+                "blocksize": 0,
+                "clevel": 5,
+                "cname": "lz4",
+                "id": "blosc",
+                "shuffle": 1
+            },
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [
+                7,
+                80,
+                64
+            ],
+            "zarr_format": 2
+        },
+        "msl/.zattrs": {
+            "GRIB_NV": 0,
+            "GRIB_Nx": 64,
+            "GRIB_Ny": 80,
+            "GRIB_cfName": "air_pressure_at_mean_sea_level",
+            "GRIB_cfVarName": "msl",
+            "GRIB_dataType": "af",
+            "GRIB_gridDefinitionDescription": "Latitude/longitude",
+            "GRIB_gridType": "regular_ll",
+            "GRIB_iDirectionIncrementInDegrees": 0.1,
+            "GRIB_iScansNegatively": 0,
+            "GRIB_jDirectionIncrementInDegrees": 0.1,
+            "GRIB_jPointsAreConsecutive": 0,
+            "GRIB_jScansPositively": 0,
+            "GRIB_latitudeOfFirstGridPointInDegrees": -15.1,
+            "GRIB_latitudeOfLastGridPointInDegrees": -23.0,
+            "GRIB_longitudeOfFirstGridPointInDegrees": 290.3,
+            "GRIB_longitudeOfLastGridPointInDegrees": 296.6,
+            "GRIB_missingValue": 3.4028234663852886e+38,
+            "GRIB_name": "Mean sea level pressure",
+            "GRIB_numberOfPoints": 5120,
+            "GRIB_paramId": 151,
+            "GRIB_shortName": "msl",
+            "GRIB_stepType": "instant",
+            "GRIB_stepUnits": 1,
+            "GRIB_typeOfLevel": "meanSea",
+            "GRIB_units": "Pa",
+            "GRIB_uvRelativeToGrid": 0,
+            "_ARRAY_DIMENSIONS": [
+                "step",
+                "latitude",
+                "longitude"
+            ],
+            "coordinates": "time step meanSea latitude longitude valid_time",
+            "long_name": "Mean sea level pressure",
+            "standard_name": "air_pressure_at_mean_sea_level",
+            "units": "Pa"
+        },
+        "step/.zarray": {
+            "chunks": [
+                7
+            ],
+            "compressor": {
+                "blocksize": 0,
+                "clevel": 5,
+                "cname": "lz4",
+                "id": "blosc",
+                "shuffle": 1
+            },
+            "dtype": "<i8",
+            "fill_value": -9223372036854775808,
+            "filters": null,
+            "order": "C",
+            "shape": [
+                7
+            ],
+            "zarr_format": 2
+        },
+        "step/.zattrs": {
+            "_ARRAY_DIMENSIONS": [
+                "step"
+            ],
+            "dtype": "timedelta64[ns]",
+            "long_name": "time since forecast_reference_time",
+            "standard_name": "forecast_period",
+            "units": "nanoseconds"
+        },
+        "time/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dtype": "<i8",
+            "fill_value": null,
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "time/.zattrs": {
+            "_ARRAY_DIMENSIONS": [],
+            "calendar": "proleptic_gregorian",
+            "long_name": "initial time of forecast",
+            "standard_name": "forecast_reference_time",
+            "units": "seconds since 1970-01-01"
+        },
+        "valid_time/.zarray": {
+            "chunks": [
+                7
+            ],
+            "compressor": {
+                "blocksize": 0,
+                "clevel": 5,
+                "cname": "lz4",
+                "id": "blosc",
+                "shuffle": 1
+            },
+            "dtype": "<f8",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [
+                7
+            ],
+            "zarr_format": 2
+        },
+        "valid_time/.zattrs": {
+            "_ARRAY_DIMENSIONS": [
+                "step"
+            ],
+            "calendar": "proleptic_gregorian",
+            "long_name": "time",
+            "standard_name": "time",
+            "units": "seconds since 1970-01-01"
+        }
+    },
+    "zarr_consolidated_format": 1
+}
