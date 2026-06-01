@@ -6,7 +6,7 @@ from pathlib import Path
 PROJECT_PATH = Path(__file__).parents[1]  # points to early-warning-system/
 bootstrap_project(PROJECT_PATH)
 
-date_fct = (datetime.now()).strftime('%Y-%m-%d') 
+date_fct = (datetime.now() - timedelta(hours=5)).strftime('%Y-%m-%d') 
 
 
 runtime_params_tmin = {
