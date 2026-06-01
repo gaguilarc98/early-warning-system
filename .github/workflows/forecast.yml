@@ -2,7 +2,7 @@ name: Routine Daily Forecast
 
 on:
   schedule:
-    - cron: '30 13 * * *'  # 08:00 Bolivia time (UTC-4)
+    - cron: '30 11 * * *'  # 07:30 Bolivia time (UTC-4)
   workflow_dispatch:
 
 jobs:
