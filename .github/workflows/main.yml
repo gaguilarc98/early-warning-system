@@ -10,20 +10,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Write CDS API credentials
-        run: |
-          ls
       - name: Checkout main branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6.0.2
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6.2.0
         with:
           python-version: '3.10'
 
       - name: Install dependencies
         run: |
-          pip install -r early-warning-system/requirements.txt
+          pip install -r requirements.txt
 
       - name: Write CDS API credentials
         run: |
@@ -32,7 +29,7 @@ jobs:
 
       - name: Run forecast update
         run: |
-          python early-warning-system/notebooks/update_forecast.py
+          python3 notebooks/update_forecast.py
 
       - name: Commit updated data files
         uses: stefanzweifel/git-auto-commit-action@v5
@@ -40,4 +37,4 @@ jobs:
           commit_message: "chore: daily forecast update $(date +'%Y-%m-%d')"
           commit_user_name: Gabriel [GitHub Actions]
           commit_user_email: 98acga98@gmail.com
-          file_pattern: early-warning-system/data/**
+          file_pattern: data/**
