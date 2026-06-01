@@ -10,6 +10,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Write CDS API credentials
+        run: |
+          ls
       - name: Checkout main branch
         uses: actions/checkout@v4
 
