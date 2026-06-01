@@ -23,7 +23,8 @@ dict_params_spatial:
 
 ds_grid:
   type: early_warning_system.datasets_registry.XarrayZarrDataset
-  filepath: ${globals:data_path}/${_arg.country}/geometries/ews_grid.zarr
+  #filepath: ${globals:data_path}/${_arg.country}/geometries/ews_grid.zarr
+  filepath: data/geometries/ews_grid.zarr
   save_args:
     consolidated: true
     mode: w
