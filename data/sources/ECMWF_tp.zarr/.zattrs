@@ -4,6 +4,6 @@
     "GRIB_centreDescription": "European Centre for Medium-Range Weather Forecasts",
     "GRIB_edition": 2,
     "GRIB_subCentre": 0,
-    "history": "2026-05-31T23:39 GRIB to CDM+CF via cfgrib-0.9.15.1/ecCodes-2.46.2 with {\"source\": \"../../../../../tmp/tmpeeffpqn5.grib\", \"filter_by_keys\": {}, \"encode_cf\": [\"parameter\", \"time\", \"geography\", \"vertical\"]}",
+    "history": "2026-06-01T02:11 GRIB to CDM+CF via cfgrib-0.9.15.1/ecCodes-2.47.1 with {\"source\": \"../../../../../tmp/tmpw414ow0a.grib\", \"filter_by_keys\": {}, \"encode_cf\": [\"parameter\", \"time\", \"geography\", \"vertical\"]}",
     "institution": "European Centre for Medium-Range Weather Forecasts"
 }
