@@ -1,0 +1,249 @@
+{
+    "metadata": {
+        ".zattrs": {
+            "Conventions": "CF-1.7",
+            "GRIB_centre": "ecmf",
+            "GRIB_centreDescription": "European Centre for Medium-Range Weather Forecasts",
+            "GRIB_edition": 2,
+            "GRIB_subCentre": 0,
+            "history": "2026-05-13T11:16 GRIB to CDM+CF via cfgrib-0.9.15.0/ecCodes-2.43.0 with {\"source\": \"../../../../../tmp/tmppgt1k1od.grib\", \"filter_by_keys\": {}, \"encode_cf\": [\"parameter\", \"time\", \"geography\", \"vertical\"]}",
+            "institution": "European Centre for Medium-Range Weather Forecasts"
+        },
+        ".zgroup": {
+            "zarr_format": 2
+        },
+        "clim_v10/.zarray": {
+            "chunks": [
+                53,
+                5,
+                80,
+                64
+            ],
+            "compressor": {
+                "blocksize": 0,
+                "clevel": 5,
+                "cname": "lz4",
+                "id": "blosc",
+                "shuffle": 1
+            },
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [
+                53,
+                5,
+                80,
+                64
+            ],
+            "zarr_format": 2
+        },
+        "clim_v10/.zattrs": {
+            "GRIB_NV": 0,
+            "GRIB_Nx": 64,
+            "GRIB_Ny": 80,
+            "GRIB_cfName": "northward_wind",
+            "GRIB_cfVarName": "v10",
+            "GRIB_dataType": "af",
+            "GRIB_gridDefinitionDescription": "Latitude/longitude",
+            "GRIB_gridType": "regular_ll",
+            "GRIB_iDirectionIncrementInDegrees": 0.1,
+            "GRIB_iScansNegatively": 0,
+            "GRIB_jDirectionIncrementInDegrees": 0.1,
+            "GRIB_jPointsAreConsecutive": 0,
+            "GRIB_jScansPositively": 0,
+            "GRIB_latitudeOfFirstGridPointInDegrees": -15.1,
+            "GRIB_latitudeOfLastGridPointInDegrees": -23.0,
+            "GRIB_longitudeOfFirstGridPointInDegrees": 290.3,
+            "GRIB_longitudeOfLastGridPointInDegrees": 296.6,
+            "GRIB_missingValue": 3.4028234663852886e+38,
+            "GRIB_name": "10 metre V wind component",
+            "GRIB_numberOfPoints": 5120,
+            "GRIB_paramId": 166,
+            "GRIB_shortName": "10v",
+            "GRIB_stepType": "instant",
+            "GRIB_stepUnits": 1,
+            "GRIB_typeOfLevel": "heightAboveGround",
+            "GRIB_units": "m s**-1",
+            "GRIB_uvRelativeToGrid": 0,
+            "_ARRAY_DIMENSIONS": [
+                "week",
+                "step",
+                "lat",
+                "lon"
+            ],
+            "long_name": "10 metre V wind component",
+            "standard_name": "northward_wind",
+            "units": "m s**-1"
+        },
+        "lat/.zarray": {
+            "chunks": [
+                80
+            ],
+            "compressor": {
+                "blocksize": 0,
+                "clevel": 5,
+                "cname": "lz4",
+                "id": "blosc",
+                "shuffle": 1
+            },
+            "dtype": "<f8",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [
+                80
+            ],
+            "zarr_format": 2
+        },
+        "lat/.zattrs": {
+            "_ARRAY_DIMENSIONS": [
+                "lat"
+            ],
+            "long_name": "latitude",
+            "standard_name": "latitude",
+            "stored_direction": "decreasing",
+            "units": "degrees_north"
+        },
+        "lon/.zarray": {
+            "chunks": [
+                64
+            ],
+            "compressor": {
+                "blocksize": 0,
+                "clevel": 5,
+                "cname": "lz4",
+                "id": "blosc",
+                "shuffle": 1
+            },
+            "dtype": "<f8",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [
+                64
+            ],
+            "zarr_format": 2
+        },
+        "lon/.zattrs": {
+            "_ARRAY_DIMENSIONS": [
+                "lon"
+            ]
+        },
+        "std_v10/.zarray": {
+            "chunks": [
+                53,
+                5,
+                80,
+                64
+            ],
+            "compressor": {
+                "blocksize": 0,
+                "clevel": 5,
+                "cname": "lz4",
+                "id": "blosc",
+                "shuffle": 1
+            },
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [
+                53,
+                5,
+                80,
+                64
+            ],
+            "zarr_format": 2
+        },
+        "std_v10/.zattrs": {
+            "GRIB_NV": 0,
+            "GRIB_Nx": 64,
+            "GRIB_Ny": 80,
+            "GRIB_cfName": "northward_wind",
+            "GRIB_cfVarName": "v10",
+            "GRIB_dataType": "af",
+            "GRIB_gridDefinitionDescription": "Latitude/longitude",
+            "GRIB_gridType": "regular_ll",
+            "GRIB_iDirectionIncrementInDegrees": 0.1,
+            "GRIB_iScansNegatively": 0,
+            "GRIB_jDirectionIncrementInDegrees": 0.1,
+            "GRIB_jPointsAreConsecutive": 0,
+            "GRIB_jScansPositively": 0,
+            "GRIB_latitudeOfFirstGridPointInDegrees": -15.1,
+            "GRIB_latitudeOfLastGridPointInDegrees": -23.0,
+            "GRIB_longitudeOfFirstGridPointInDegrees": 290.3,
+            "GRIB_longitudeOfLastGridPointInDegrees": 296.6,
+            "GRIB_missingValue": 3.4028234663852886e+38,
+            "GRIB_name": "10 metre V wind component",
+            "GRIB_numberOfPoints": 5120,
+            "GRIB_paramId": 166,
+            "GRIB_shortName": "10v",
+            "GRIB_stepType": "instant",
+            "GRIB_stepUnits": 1,
+            "GRIB_typeOfLevel": "heightAboveGround",
+            "GRIB_units": "m s**-1",
+            "GRIB_uvRelativeToGrid": 0,
+            "_ARRAY_DIMENSIONS": [
+                "week",
+                "step",
+                "lat",
+                "lon"
+            ],
+            "long_name": "10 metre V wind component",
+            "standard_name": "northward_wind",
+            "units": "m s**-1"
+        },
+        "step/.zarray": {
+            "chunks": [
+                5
+            ],
+            "compressor": {
+                "blocksize": 0,
+                "clevel": 5,
+                "cname": "lz4",
+                "id": "blosc",
+                "shuffle": 1
+            },
+            "dtype": "<f8",
+            "fill_value": "NaN",
+            "filters": null,
+            "order": "C",
+            "shape": [
+                5
+            ],
+            "zarr_format": 2
+        },
+        "step/.zattrs": {
+            "_ARRAY_DIMENSIONS": [
+                "step"
+            ]
+        },
+        "week/.zarray": {
+            "chunks": [
+                53
+            ],
+            "compressor": {
+                "blocksize": 0,
+                "clevel": 5,
+                "cname": "lz4",
+                "id": "blosc",
+                "shuffle": 1
+            },
+            "dtype": "<i8",
+            "fill_value": null,
+            "filters": null,
+            "order": "C",
+            "shape": [
+                53
+            ],
+            "zarr_format": 2
+        },
+        "week/.zattrs": {
+            "_ARRAY_DIMENSIONS": [
+                "week"
+            ]
+        }
+    },
+    "zarr_consolidated_format": 1
+}

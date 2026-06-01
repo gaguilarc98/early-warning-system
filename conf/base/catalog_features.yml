@@ -10,35 +10,43 @@ _arg:
 # STATIC FEATURES 
 ds_f_dem:
   type: early_warning_system.datasets_registry.XarrayZarrDataset
-  filepath: ${globals:data_path}/${_arg.country}/features/ews_f_dem.zarr
+  #filepath: ${globals:data_path}/${_arg.country}/features/ews_f_dem.zarr
+  filepath: data/features/ews_f_dem.zarr
 
 ds_f_clim_tmin:
   type: early_warning_system.datasets_registry.XarrayZarrDataset
-  filepath: ${globals:data_path}/${_arg.country}/features/ews_f_clim_tmin.zarr
+  #filepath: ${globals:data_path}/${_arg.country}/features/ews_f_clim_tmin.zarr
+  filepath: data/features/ews_f_clim_tmin.zarr
 
 ds_f_clim_10u:
   type: early_warning_system.datasets_registry.XarrayZarrDataset
-  filepath: ${globals:data_path}/${_arg.country}/features/ews_f_clim_10u.zarr
+  #filepath: ${globals:data_path}/${_arg.country}/features/ews_f_clim_10u.zarr
+  filepath: data/features/ews_f_clim_10u.zarr
 
 ds_f_clim_10v:
   type: early_warning_system.datasets_registry.XarrayZarrDataset
-  filepath: ${globals:data_path}/${_arg.country}/features/ews_f_clim_10v.zarr
+  #filepath: ${globals:data_path}/${_arg.country}/features/ews_f_clim_10v.zarr
+  filepath: data/features/ews_f_clim_10v.zarr
 
 ds_f_clim_msl:
   type: early_warning_system.datasets_registry.XarrayZarrDataset
-  filepath: ${globals:data_path}/${_arg.country}/features/ews_f_clim_msl.zarr
+  #filepath: ${globals:data_path}/${_arg.country}/features/ews_f_clim_msl.zarr
+  filepath: data/features/ews_f_clim_msl.zarr
 
 ds_f_clim_swc:
   type: early_warning_system.datasets_registry.XarrayZarrDataset
-  filepath: ${globals:data_path}/${_arg.country}/features/ews_f_clim_swc.zarr
+  #filepath: ${globals:data_path}/${_arg.country}/features/ews_f_clim_swc.zarr
+  filepath: data/features/ews_f_clim_swc.zarr
 
 ds_f_clim_tp:
   type: early_warning_system.datasets_registry.XarrayZarrDataset
-  filepath: ${globals:data_path}/${_arg.country}/features/ews_f_clim_tp.zarr
+  #filepath: ${globals:data_path}/${_arg.country}/features/ews_f_clim_tp.zarr
+  filepath: data/features/ews_f_clim_tp.zarr
 
 ds_f_clim_tp_chirps:
   type: early_warning_system.datasets_registry.XarrayZarrDataset
-  filepath: ${globals:data_path}/${_arg.country}/features/ews_f_clim_tp_chirps.zarr
+  #filepath: ${globals:data_path}/${_arg.country}/features/ews_f_clim_tp_chirps.zarr
+  filepath: data/features/ews_f_clim_tp_chirps.zarr
 
 
 # DYNAMIC FEATURES 
