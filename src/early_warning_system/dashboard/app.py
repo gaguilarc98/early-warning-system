@@ -20,10 +20,10 @@ import yaml
 import streamlit as st
 
 # ── Kedro imports (active in production) ─────────────────────────────────────
-from kedro.framework.session import KedroSession
-from kedro.framework.startup import bootstrap_project
+#from kedro.framework.session import KedroSession
+#from kedro.framework.startup import bootstrap_project
 from pathlib import Path
-bootstrap_project(Path.cwd())
+#bootstrap_project(Path.cwd())
 
 from data_utils import generate_mock_data, forecast_to_grid
 from plot_utils import plot_probability, plot_alert_level
