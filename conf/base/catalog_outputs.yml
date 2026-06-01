@@ -63,23 +63,6 @@ ds_mt:
 df_mt:
   type: MemoryDataset
 
-#df_mt_clean:
-#  type: pandas.SQLTableDataset
-#  table_name: ews_${_arg.peril}_mt_clean_${globals:version}
-#  credentials: sqlite_local
-#  save_args:
-#    if_exists: replace #replace
-#  load_args:
-#    index_col: false
-
-#df_mt_clean_read:
-#  type: pandas.SQLQueryDataset
-#  credentials: sqlite_local
-#  sql: 
-#    SELECT * FROM ews_${_arg.peril}_mt_clean_${globals:version}
-#    WHERE DATE(time) >= '${_arg.start_date}'
-#      AND DATE(time) <= '${_arg.end_date}'
-
 df_mt_clean:
   type: early_warning_system.datasets_registry.DeltaLakeRawDataset
   filepath: ${globals:data_path}/${_arg.country}/outputs/ews_${_arg.peril}_mt_clean
@@ -124,26 +107,6 @@ pkl_final:
   filepath: data/models/ews_${_arg.peril}_final_model_${_arg.model}.pkl
   backend: pickle
 
-
-# PREDICT OUTPUTS
-pkl_model_coldspells:
-  type: pickle.PickleDataset
-  filepath: ${globals:data_path}/${_arg.country}/models/ews_downscale_temperature_final_model_${_arg.model}.pkl
-  backend: pickle
-
-pkl_model_rainfall:
-  type: pickle.PickleDataset
-  filepath: ${globals:data_path}/${_arg.country}/models/ews_downscale_precipitation_final_model_${globals:version}.pkl
-  backend: pickle
-
-df_model_preds:
-  type: pandas.SQLTableDataset
-  table_name: ews_${_arg.peril}_predictions_${globals:version}_borrar
-  credentials: sqlite_local
-  save_args:
-    if_exists: append
-  load_args:
-    index_col: false
 
 # VISUALIZATION PLOTS
 plt_metrics:
