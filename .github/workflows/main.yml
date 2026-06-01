@@ -2,7 +2,7 @@ name: Daily Forecast Update
 
 on:
   schedule:
-    - cron: '15 12 * * *'  # 08:00 Bolivia time (UTC-4)
+    - cron: '00 13 * * *'  # 08:00 Bolivia time (UTC-4)
   workflow_dispatch:
 
 jobs:
