@@ -6,7 +6,7 @@
             "GRIB_centreDescription": "European Centre for Medium-Range Weather Forecasts",
             "GRIB_edition": 2,
             "GRIB_subCentre": 0,
-            "history": "2026-06-01T03:40 GRIB to CDM+CF via cfgrib-0.9.15.1/ecCodes-2.47.1 with {\"source\": \"../../../../../tmp/tmpjd_gcv4f.grib\", \"filter_by_keys\": {}, \"encode_cf\": [\"parameter\", \"time\", \"geography\", \"vertical\"]}",
+            "history": "2026-06-01T12:45 GRIB to CDM+CF via cfgrib-0.9.15.1/ecCodes-2.47.1 with {\"source\": \"../../../../../tmp/tmprnt4pids.grib\", \"filter_by_keys\": {}, \"encode_cf\": [\"parameter\", \"time\", \"geography\", \"vertical\"]}",
             "institution": "European Centre for Medium-Range Weather Forecasts"
         },
         ".zgroup": {
@@ -31,7 +31,7 @@
             "filters": null,
             "order": "C",
             "shape": [
-                0,
+                1,
                 5,
                 80,
                 64
@@ -141,7 +141,7 @@
             "filters": null,
             "order": "C",
             "shape": [
-                0
+                1
             ],
             "zarr_format": 2
         },
@@ -150,7 +150,7 @@
                 "time"
             ],
             "calendar": "proleptic_gregorian",
-            "units": "days since 1970-01-01 00:00:00"
+            "units": "days since 2026-06-01 00:00:00"
         },
         "u10/.zarray": {
             "chunks": [
@@ -171,7 +171,7 @@
             "filters": null,
             "order": "C",
             "shape": [
-                0,
+                1,
                 5,
                 80,
                 64
