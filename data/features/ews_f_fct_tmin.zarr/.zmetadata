@@ -31,7 +31,7 @@
             "filters": null,
             "order": "C",
             "shape": [
-                1,
+                0,
                 5,
                 80,
                 64
@@ -144,7 +144,7 @@
             "filters": null,
             "order": "C",
             "shape": [
-                1,
+                0,
                 5,
                 80,
                 64
@@ -206,7 +206,7 @@
             "filters": null,
             "order": "C",
             "shape": [
-                1
+                0
             ],
             "zarr_format": 2
         },
@@ -215,7 +215,7 @@
                 "time"
             ],
             "calendar": "proleptic_gregorian",
-            "units": "days since 2026-06-05 00:00:00"
+            "units": "days since 1970-01-01 00:00:00"
         }
     },
     "zarr_consolidated_format": 1
