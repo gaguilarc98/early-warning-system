@@ -114,7 +114,7 @@
                 "time"
             ],
             "calendar": "proleptic_gregorian",
-            "units": "days since 2026-06-08 00:00:00"
+            "units": "days since 2026-06-09 00:00:00"
         },
         "tp/.zarray": {
             "chunks": [
