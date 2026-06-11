@@ -6,7 +6,7 @@
             "GRIB_centreDescription": "European Centre for Medium-Range Weather Forecasts",
             "GRIB_edition": 2,
             "GRIB_subCentre": 0,
-            "history": "2026-06-10T14:41 GRIB to CDM+CF via cfgrib-0.9.15.1/ecCodes-2.47.1 with {\"source\": \"../../../../../tmp/tmpx5ki22lz.grib\", \"filter_by_keys\": {}, \"encode_cf\": [\"parameter\", \"time\", \"geography\", \"vertical\"]}",
+            "history": "2026-06-11T15:08 GRIB to CDM+CF via cfgrib-0.9.15.1/ecCodes-2.47.1 with {\"source\": \"../../../../../tmp/tmp3twear3v.grib\", \"filter_by_keys\": {}, \"encode_cf\": [\"parameter\", \"time\", \"geography\", \"vertical\"]}",
             "institution": "European Centre for Medium-Range Weather Forecasts"
         },
         ".zgroup": {
@@ -215,7 +215,7 @@
                 "time"
             ],
             "calendar": "proleptic_gregorian",
-            "units": "days since 2026-06-10 00:00:00"
+            "units": "days since 2026-06-11 00:00:00"
         }
     },
     "zarr_consolidated_format": 1
