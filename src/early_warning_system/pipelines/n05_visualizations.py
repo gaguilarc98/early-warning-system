@@ -37,7 +37,7 @@ def plot_metrics_classif_by_group(df_preds, params):
         "out_of_sample":  "darkblue",
     })
     title   = params.get('title', 'Classification metrics by subset')
-    figsize = params.get('figsize', (4.5, 7))
+    figsize = params.get('figsize', (4.5, 6))
 
     # Compute metrics per group
     df_metrics = (

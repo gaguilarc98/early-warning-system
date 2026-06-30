@@ -513,15 +513,18 @@ def create_cold_spells_target(
     #print('Target from gridded data succesfully created')
 
     # Step 4: Merge in-situ target dataset with CHIRPS target dataset
+    print(df_aux_metadata.columns)
     df_target = df_aux_metadata.merge(
-        df_clean,
+        df_clean.drop(columns=['longitude', 'latitude']),
         how = 'left',
-        on = group_cols + ['longitude', 'latitude']
+        on = group_cols #+ ['longitude', 'latitude']
     ).merge(
         df_era5,
         how = 'left',
         on = group_cols + ['longitude', 'latitude', 'time']
     )
+
+    df_target['cluster'] = df_target.groupby(group_cols)['cluster'].transform('max')
 
     # Adjust bias in ERA5 dataset
     df_target['month'] = df_target['time'].dt.month
@@ -584,7 +587,7 @@ def create_cold_spells_target(
         'longitude': 'lon_station',
         'latitude': 'lat_station'
     })
-    df_target = df_target.dropna(subset=['lon', 'lat']).reset_index(drop=True)
+    df_target = df_target.dropna(subset=group_cols).reset_index(drop=True)
 
     return df_target
 
@@ -883,15 +886,15 @@ def create_extreme_rainfall_target(
 
     # Step 4: Merge in-situ target dataset with CHIRPS target dataset
     df_target = df_aux_metadata.merge(
-        df_clean,
+        df_clean.drop(columns=['longitude', 'latitude']),
         how = 'left',
-        on = group_cols + ['longitude', 'latitude']
+        on = group_cols #+ ['longitude', 'latitude']
     ).merge(
         df_chirps,
         how = 'left',
         on = group_cols + ['longitude', 'latitude', 'time']
     )
-   
+    df_target['cluster'] = df_target.groupby(group_cols)['cluster'].transform('max')
 
     '''# Adjust daily prcp allocation from stations using CHIRPS 
     df_target['year'] = df_target['time'].dt.year
@@ -990,7 +993,7 @@ def create_extreme_rainfall_target(
         'longitude': 'lon_station',
         'latitude': 'lat_station'
     })
-    df_target = df_target.dropna(subset=['lon', 'lat']).reset_index(drop=True)
+    df_target = df_target.dropna(subset=group_cols).reset_index(drop=True)
 
     return df_target
 

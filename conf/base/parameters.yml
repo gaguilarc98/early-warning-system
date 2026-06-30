@@ -348,13 +348,13 @@ hypertuning:
         'n_estimators': {
           'type': 'int',
           'low': 10,
-          'high': 75,
+          'high': 100,
           'step': 5
         },
         'max_depth': {
           'type': 'int',
           'low': 3,
-          'high': 15
+          'high': 16
         },
         'max_leaves': {
           'type': 'int',
@@ -408,6 +408,9 @@ plot_metrics:
     coldspell:  target_1sd_3d_final
     rainfall:   target_P95_5d_final
   prob_col:     'prob_class_1'
+  figsize: 
+    - 4.5
+    - 5
 
 plot_scatter:
   groupby_cols: ['idStation', 'lon_station', 'lat_station']

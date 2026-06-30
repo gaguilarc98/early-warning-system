@@ -68,7 +68,8 @@ df_mt_clean:
   type: early_warning_system.datasets_registry.DeltaLakeRawDataset
   filepath: ${globals:data_path}/${_arg.country}/outputs/ews_${_arg.peril}_mt_clean
   save_args:
-    mode: append
+    mode: overwrite
+    schema_mode: overwrite
     partition_by: yearmon
 
 
